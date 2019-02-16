@@ -1,0 +1,2 @@
+model_checkpoint_path: "lenet_with_0_001_learning_rate"
+all_model_checkpoint_paths: "lenet_with_0_001_learning_rate"
