@@ -42,20 +42,23 @@ You're reading it! and here is a link to my [project code](https://github.com/da
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+I used simple Python methods to calculate summary statistics of the traffic signs data set like:
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* The size of training set is 34799
+* The size of the validation set is 4410
+* The size of test set is 12630
+* The shape of a traffic sign image is (32, 32, 3)
+* The number of unique classes/labels in the data set is 43
 
 #### 2. Include an exploratory visualization of the dataset.
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-![alt text][image1]
+![Train distribution][./train_distribution.png]
+![Validation distribution][./validation_distribution.png]
+![Test distribution][./test_distribution.png]
+
+As you can see, the distribution of the training, validation and testing sets are similar. However, it's worth noticing that some labels don't contain a high number of samples. For example, the label 0 only contains 180 samples in the training set, while others contain magnitudes more. Therefore, we may need to collect or generate more data if we a model that will be able to classify those labels with low frequency, with enough precision.
 
 ### Design and Test a Model Architecture
 
