@@ -218,10 +218,15 @@ As you can see, the architecture proposed by LeCun gave us some good results (en
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![Stop](../test/stop.png)
+![Do not enter](../test/do_not_enter.png)
+![30 km/h](../test/30.png)
+![60 km/h](../test/60.png)
+![80 km/h](../test/80.png)
+![ahead](../test/up.png)
+![yield](../test/yield.png)
 
-The first image might be difficult to classify because ...
+These images were randomly chose from the web. I chose images with different light conditions and where the sign may be ambiguous at low resolution (for example, the 80 km/h sign can be interpreted as 30 km/h as well).
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
