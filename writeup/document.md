@@ -55,7 +55,9 @@ I used simple Python methods to calculate summary statistics of the traffic sign
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
 ![Train distribution][./train_distribution.png]
+
 ![Validation distribution][./validation_distribution.png]
+
 ![Test distribution][./test_distribution.png]
 
 As you can see, the distribution of the training, validation and testing sets are similar. However, it's worth noticing that some labels don't contain a high number of samples. For example, the label 0 only contains 180 samples in the training set, while others contain magnitudes more. Therefore, we may need to collect or generate more data if we a model that will be able to classify those labels with low frequency, with enough precision.
