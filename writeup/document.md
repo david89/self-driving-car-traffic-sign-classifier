@@ -224,32 +224,27 @@ Here are the results of the prediction:
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
+| Do not enter | Do not enter 										|
 | Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Ahead | Ahead |
+| 30 km/h	      		| 30 km/h |
+| 60 km/h	      		| 60 km/h |
+| 80 km/h	      		| 80 km/h |
 
+The model was able to correctly guess 7 out of the 7 traffic signs, which gives an accuracy of 100%. The next step to improve the current model is grab some images where the classification fails, and add them to the test data set.
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+#### 3. Describe how certain the model is when predicting on each of the seven new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+For the stop sign image, the model is relatively sure that this is a stop sign (probability of 0.995), and the image does contain a stop sign. The top five soft max probabilities were ['Class Stop with probability 0.9953418970108032', 'Class Speed limit (20km/h) with probability 0.001570996129885316', 'Class No entry with probability 0.0011368233244866133', 'Class Speed limit (30km/h) with probability 0.00047899034689180553', 'Class General caution with probability 0.00020614403183571994']
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+For the do not enter sign image, the model is relatively sure that this is a do not enter sign (probability of 0.9999), and the image does contain a do not enter sign. The top five soft max probabilities were ['Class No entry with probability 0.9999896287918091', 'Class Stop with probability 1.0346545423089992e-05', 'Class Speed limit (20km/h) with probability 5.875588016124311e-08', 'Class Speed limit (60km/h) with probability 4.244998241809128e-10', 'Class Bumpy road with probability 4.0290690228594883e-10']
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+For the yield sign image, the model is relatively sure that this is a yield sign (probability of 1.0), and the image does contain a yield sign. The top five soft max probabilities were ['Class Yield with probability 1.0', 'Class Speed limit (60km/h) with probability 3.342016875913789e-13', 'Class Ahead only with probability 2.031858839166012e-13', 'Class No passing with probability 2.991360888919374e-14', 'Class Children crossing with probability 1.8779680975990025e-14']
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+For the ahead sign image, the model is relatively sure that this is a ahead sign (probability of 1.0), and the image does contain a ahead sign. The top five soft max probabilities were ['Class Ahead only with probability 1.0', 'Class Go straight or right with probability 4.1921002259803775e-13', 'Class Roundabout mandatory with probability 7.430521990888991e-15', 'Class Keep left with probability 1.6883283050821369e-15', 'Class Turn left ahead with probability 7.620756485238124e-16']
 
+For the 30 km/h sign image, the model is relatively sure that this is a 30 km/h sign (probability of 0.9999), and the image does contain a 30 km/h sign. The top five soft max probabilities were ['Class Speed limit (30km/h) with probability 0.999987006187439', 'Class Speed limit (70km/h) with probability 1.29794716485776e-05', 'Class Speed limit (20km/h) with probability 4.545992737803317e-08', 'Class Speed limit (50km/h) with probability 2.816904912453233e-12', 'Class Speed limit (80km/h) with probability 1.2211869970107925e-12']
 
-For the second image ... 
+For the 60 km/h sign image, the model is relatively sure that this is a 60 km/h sign (probability of 0.997), and the image does contain a 60 km/h sign. The top five soft max probabilities were ['Class Speed limit (60km/h) with probability 0.9975118637084961', 'Class Speed limit (50km/h) with probability 0.002487539779394865', 'Class No passing with probability 1.4090484512507828e-07', 'Class Roundabout mandatory with probability 9.294182490293679e-08', 'Class Slippery road with probability 8.730827261160812e-08']
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-
-
+For the 80 km/h sign image, the model is relatively sure that this is a 80 km/h sign (probability of 0.9999), and the image does contain a 80 km/h sign. The top five soft max probabilities were ['Class Speed limit (80km/h) with probability 0.9999632835388184', 'Class Speed limit (60km/h) with probability 3.660628863144666e-05', 'Class Speed limit (100km/h) with probability 7.627546239064031e-08', 'Class Speed limit (30km/h) with probability 1.7379379713133858e-08', 'Class Speed limit (50km/h) with probability 2.1873205469091772e-09']
