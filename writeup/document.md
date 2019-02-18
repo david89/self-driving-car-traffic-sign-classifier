@@ -66,24 +66,37 @@ As you can see, the distribution of the training, validation and testing sets ar
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+First of all, we decided to consider images in the RGB color space, since we don't know if color might bring extra information to our prediction model.
 
-Here is an example of a traffic sign image before and after grayscaling.
+In the "Data Set Summary & Exploration" section we mentioned that we don't have enough samples for certain labels. One possible workaround is to generate some synthetic data for such labels. For example, let's take a look at one image like:
 
-![alt text][image2]
+![Original image](./original.png)
 
-As a last step, I normalized the image data because ...
+We could rotate the image by a small angle and get a new image that we can incorporate into our training set.
 
-I decided to generate additional data because ... 
+![Rotated image](./rotation.png)
 
-To add more data to the the data set, I used the following techniques because ... 
+Additionally, we can apply more transformations like:
 
-Here is an example of an original image and an augmented image:
+* Salt and pepper; where we set some random pixels to either 0 (black or "pepper") or 255 (white or "salt"). Please note that in a RGB image, salt and pepper may not set the pixels to black or white, but something like bright green, red or blue.
 
-![alt text][image3]
+![Salt and pepper](./salt_and_pepper.png)
 
-The difference between the original data set and the augmented data set is the following ... 
+* Gaussian; as described in [here](https://en.wikipedia.org/wiki/Gaussian_noise).
 
+![Gaussian](./gaussian.png)
+
+* Speckle noise.
+
+![Speckle](./speckle.png)
+
+After applying different noise functions to our dataset, we have a much better distribution:
+
+![New distribution](./extended_train_distribution.png)
+
+However, we are not going to use the new extended train data set just yet, because we want to measure the accuracy of the model on the initial test data set.
+
+Lastly, in order to smooth out the data, we decided to use the formula (pixel - 128) / 128, which will transform pixels in the range [0, 255] into the range [-1.0, 1.0]. Smaller ranges will allow our model to converge faster and give more accurate predictions. As a future improvement for this project, we could use a standardization feature scalling, i.e., (x - mean(x)) / stddev(x).
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
