@@ -68,27 +68,19 @@ As you can see, the distribution of the training, validation and testing sets ar
 
 First of all, we decided to consider images in the RGB color space, since we don't know if color might bring extra information to our prediction model.
 
-In the "Data Set Summary & Exploration" section we mentioned that we don't have enough samples for certain labels. One possible workaround is to generate some synthetic data for such labels. For example, let's take a look at one image like:
+In the "Data Set Summary & Exploration" section we mentioned that we don't have enough samples for certain labels. One possible workaround is to generate some synthetic data for such labels. For example, we could apply the following transformations.
 
-![Original image](./original.png)
-
-We could rotate the image by a small angle and get a new image that we can incorporate into our training set.
-
-![Rotated image](./rotation.png)
-
-Additionally, we can apply more transformations like:
+* We could rotate the image by a small angle (between -10 and 10 degrees for example).
 
 * Salt and pepper; where we set some random pixels to either 0 (black or "pepper") or 255 (white or "salt"). Please note that in a RGB image, salt and pepper may not set the pixels to black or white, but something like bright green, red or blue.
 
-![Salt and pepper](./salt_and_pepper.png)
-
 * Gaussian; as described in [here](https://en.wikipedia.org/wiki/Gaussian_noise).
-
-![Gaussian](./gaussian.png)
 
 * Speckle noise.
 
-![Speckle](./speckle.png)
+The following image contains a sample image and the different transformations we could apply over it:
+
+![Noise images](./noise.png)
 
 After applying different noise functions to our dataset, we have a much better distribution:
 
