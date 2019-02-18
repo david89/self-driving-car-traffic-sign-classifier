@@ -88,7 +88,9 @@ After applying different noise functions to our dataset, we have a much better d
 
 However, we are not going to use the new extended train data set just yet, because we want to measure the accuracy of the model on the initial test data set.
 
-Lastly, in order to smooth out the data, we decided to use the formula (pixel - 128) / 128, which will transform pixels in the [0, 255] range into the [-1.0, 1.0] range. Smaller ranges will allow our model to converge faster and give more accurate predictions. As a future improvement for this project, we could use a standardization feature scalling, i.e., (x - mean(x)) / stddev(x).
+In order to smooth out the data, we decided to use the formula (pixel - 128) / 128, which will transform pixels in the [0, 255] range into the [-1.0, 1.0] range. Smaller ranges will allow our model to converge faster and give more accurate predictions. As a future improvement for this project, we could use a standardization feature scalling, i.e., (x - mean(x)) / stddev(x).
+
+Finally, we shuffled our data to make sure the model doesn't depend on the ordering of the samples.
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
@@ -109,7 +111,8 @@ Now, let's go through each layer of the chose architecture:
 | L3.1: Pooling over L2.2     	| 2x2 stride, outputs 5x5x16 |
 | L3.2: Convolution 5x5 over L3.1					|	1x1 stride, valid padding, outputs 1x1x400											|
 | L3.3: Concatenation of flattened L2.2 and L3.2	      	| outputs 2000 |
-| L4.1: Fully connected		| outputs `n_classes` |
+| L3.4: Dropout over L3.3	      	| outputs 2000 |
+| L4.1: Fully connected	over L3.4	| outputs `n_classes` |
  
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
@@ -119,28 +122,95 @@ To train the model, I used the following steps:
 * We then applied the softmax_cross_entropy_with_logits function over the one hot encoding and the logits from the architecture.
 * Our loss function tries to reduce the mean of the cross entropy (from the previous step) + the regularization tensor * regularization rate.
 * For the optimizer, we used the AdamOptimizer which is commonly used for this kind of problems.
+* Additionally, we trained our model using batches, since feeding the whole data set at once was too expensive.
 
 There are different hyperparameters involved in the aforementioned steps, however, we trained different models with different parameters, which will be discussed in the following section.
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+First of all, we trained a model with some default parameters:
+* Activation function: RELU
+* Number of epochs: 10
+* Batch size: 128
+* Learning rate: 0.001
+* Regularization rate: 0.0
+* Dropout rate: 0.5
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+With that model, we achieved 93.5% accuracy on the validation data set and 92.6% accuracy on the test data set. Meaning that the default values are not bad, but not good enough for 93% minimum accuracy. Therefore we decided to train different models and see which one performs better:
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+##### TANH activation function
+
+* Activation function: TANH
+* Number of epochs: 10
+* Batch size: 128
+* Learning rate: 0.001
+* Regularization rate: 0.0
+* Dropout rate: 0.5
+
+Test accuracy: 92.3%
+
+Since the RELU and TANH models gave us similar results, we decided to stick with the RELU activation function.
+
+##### 30 epochs and 0.01 regularization rate
+
+* Activation function: RELU
+* Number of epochs: 30
+* Batch size: 128
+* Learning rate: 0.001
+* Regularization rate: 0.01
+* Dropout rate: 0.5
+
+Test accuracy: 89.9%
+
+Seems like the regularization rate is too high, so let's train another model with a more conservative value.
+
+##### 30 epochs and 0.001 regularization rate
+
+* Activation function: RELU
+* Number of epochs: 30
+* Batch size: 128
+* Learning rate: 0.001
+* Regularization rate: 0.001
+* Dropout rate: 0.5
+
+Test accuracy: 93.8% (**success**)
+
+##### 0.01 learning rate
+
+* Activation function: RELU
+* Number of epochs: 10
+* Batch size: 128
+* Learning rate: 0.01
+* Regularization rate: 0.0
+* Dropout rate: 0.5
+
+Test accuracy: 90.1%
+
+Increasing the learning rate is definitely decreasing our accuracy.
+
+##### 40 epochs and 0.0005 regularization rate
+
+* Activation function: RELU
+* Number of epochs: 40
+* Batch size: 128
+* Learning rate: 0.01
+* Regularization rate: 0.0005
+* Dropout rate: 0.5
+
+Test accuracy: 93.95% (**success**)
+
+##### 30 epochs
+
+* Activation function: RELU
+* Number of epochs: 30
+* Batch size: 128
+* Learning rate: 0.01
+* Regularization rate: 0.0
+* Dropout rate: 0.5
+
+Test accuracy: 93.6% (**success**)
+
+As you can see, the architecture proposed by LeCun gave us some good results (enough to get at least 93% success rate on the test set). The best model in our case is the one with 40 epochs and a regularization rate of 0.0005%, which has a test accuracy of ~94%. That's the model we are going to use in order to run our predictions.
 
 ### Test a Model on New Images
 
