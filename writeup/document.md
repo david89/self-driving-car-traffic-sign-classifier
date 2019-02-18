@@ -88,26 +88,29 @@ After applying different noise functions to our dataset, we have a much better d
 
 However, we are not going to use the new extended train data set just yet, because we want to measure the accuracy of the model on the initial test data set.
 
-Lastly, in order to smooth out the data, we decided to use the formula (pixel - 128) / 128, which will transform pixels in the range [0, 255] into the range [-1.0, 1.0]. Smaller ranges will allow our model to converge faster and give more accurate predictions. As a future improvement for this project, we could use a standardization feature scalling, i.e., (x - mean(x)) / stddev(x).
+Lastly, in order to smooth out the data, we decided to use the formula (pixel - 128) / 128, which will transform pixels in the [0, 255] range into the [-1.0, 1.0] range. Smaller ranges will allow our model to converge faster and give more accurate predictions. As a future improvement for this project, we could use a standardization feature scalling, i.e., (x - mean(x)) / stddev(x).
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-My final model consisted of the following layers:
+The architecture that we used is described in the [Yann LeCun paper](./lecun_paper.pdf). More specifically, this is the architecture that we used:
+
+![Architecture](architecture.png)
+
+Now, let's go through each layer of the chose architecture:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| L0.1: Input         		| 32x32x3 RGB image   							| 
+| L1.1: Convolution 5x5 over L0.1    	| 1x1 stride, valid padding, outputs 28x28x6 	|
+| L1.2: Activation (RELU or TANH) over L1.1					|	outputs 28x28x6											|
+| L1.3: Max pooling	over L1.2      	| 2x2 stride,  outputs 14x14x6 |
+| L2.1: Convolution 5x5 over L1.3    	| 1x1 stride, valid padding, outputs 10x10x16 |
+| L2.2: Activation (RELU or TANH)	over L2.1				|	outputs 10x10x16 |
+| L3.1: Pooling over L2.2     	| 2x2 stride, outputs 5x5x16 |
+| L3.2: Convolution 5x5 over L3.1					|	1x1 stride, valid padding, outputs 1x1x400											|
+| L3.3: Concatenation of flattened L2.2 and L3.2	      	| outputs 2000 |
+| L4.1: Fully connected		| outputs `n_classes` |
  
-
-
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 To train the model, I used an ....
