@@ -113,7 +113,14 @@ Now, let's go through each layer of the chose architecture:
  
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+To train the model, I used the following steps:
+* I transformed the labels tensor into a one hot encoding tensor, since we have a categorization problem.
+* I got the logits tensor and a regularization tensor (based on the weights of each layer) from the chosen architecture.
+* We then applied the softmax_cross_entropy_with_logits function over the one hot encoding and the logits from the architecture.
+* Our loss function tries to reduce the mean of the cross entropy (from the previous step) + the regularization tensor * regularization rate.
+* For the optimizer, we used the AdamOptimizer which is commonly used for this kind of problems.
+
+There are different hyperparameters involved in the aforementioned steps, however, we trained different models with different parameters, which will be discussed in the following section.
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
